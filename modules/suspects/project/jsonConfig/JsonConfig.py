@@ -2,8 +2,8 @@
 Name : JsonConfig
 Author : Wieland@AMB-ZEPH15
 Version : 0
-Build : 4
-Savetimestamp : 2023-02-23T18:05:11.679683
+Build : 5
+Savetimestamp : 2023-02-23T18:09:10.046778
 Saveorigin : Project.toe
 Saveversion : 2022.28040
 Info Header End'''
@@ -43,4 +43,5 @@ class JsonConfig:
 		)
 		data = config_module.Collection( schema )
 		data.Set( datadict )
+		self.ownerComp.cook( force = True)
 		return data
