@@ -2,8 +2,8 @@
 Name : JsonConfig
 Author : Wieland@AMB-ZEPH15
 Version : 0
-Build : 3
-Savetimestamp : 2023-02-23T17:52:45.228704
+Build : 4
+Savetimestamp : 2023-02-23T18:05:11.679683
 Saveorigin : Project.toe
 Saveversion : 2022.28040
 Info Header End'''
@@ -18,6 +18,13 @@ class JsonConfig:
 		self.ownerComp = ownerComp
 		self.filepath = "config.json"
 		self.Refresh_File()
+
+	def Filepath(self):
+		path = self.ownerComp.par.Filepath.eval()
+		if not self.ownerComp.par.Useenv.eval(): return path
+		info = tdu.FileInfo( path )
+		new_name = f"{self.ownerComp.par.Currentenv.eval()}_{info.baseName}"
+		return os.path.join( info.dir, new_name)
 
 	def Refresh_File(self):
 		self.Data = self.Load_From_Json( self.ownerComp.op("config_json").text or "{}")
