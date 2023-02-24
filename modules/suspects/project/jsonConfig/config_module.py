@@ -2,8 +2,8 @@
 Name : config_module
 Author : Wieland@AMB-ZEPH15
 Version : 0
-Build : 3
-Savetimestamp : 2023-02-23T17:57:01.764660
+Build : 4
+Savetimestamp : 2023-02-24T13:08:58.964998
 Saveorigin : Project.toe
 Saveversion : 2022.28040
 Info Header End'''
@@ -14,14 +14,18 @@ class ConfigValue:
     def __repr__(self) -> str:
         return str( self.value.val )
     
-    def __init__(self, default = None, validator = lambda value: True):
+    def __init__(self, default = "", validator = lambda value: True, comment = "", parser = None):
+        
+        self.comment = comment
         self.validator = validator
         self.value = tdu.Dependency(None)
+        self.parser = parser or type(default)
         self.Set( default )
 
     def Set(self, value):
-        if not self.validator( value ): return False
-        self.value.val = value
+        parsed_value = self.parser( value )
+        if not self.validator( parsed_value ): return False
+        self.value.val = parsed_value
         self.value.modified()
 
     @property
@@ -34,7 +38,8 @@ class ConfigValue:
 
 
 class CollectionDict(dict):
-    def __init__(self, items:dict = None):
+    def __init__(self, items:dict = None, comment = ""):
+        self.comment = comment
         if items: self.update( items )
         
     def __getattr__(self, key):
@@ -47,7 +52,8 @@ class CollectionDict(dict):
 import copy
 
 class CollectionList(list):
-    def __init__(self,items:list = None, default_member = None):
+    def __init__(self,items:list = None, default_member = None, comment = ""):
+        self.comment = comment
         self.default_member = default_member or ConfigValue()
         if items: self.Set( items )
 

@@ -1,9 +1,10 @@
+
 '''Info Header Start
 Name : JsonConfig
 Author : Wieland@AMB-ZEPH15
 Version : 0
-Build : 5
-Savetimestamp : 2023-02-23T18:09:10.046778
+Build : 6
+Savetimestamp : 2023-02-24T13:14:41.209464
 Saveorigin : Project.toe
 Saveversion : 2022.28040
 Info Header End'''
@@ -16,6 +17,7 @@ class JsonConfig:
 	def __init__(self, ownerComp):
 		# The component to which this extension is attached
 		self.ownerComp = ownerComp
+		self.config_module = config_module
 		self.filepath = "config.json"
 		self.Refresh_File()
 

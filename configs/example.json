@@ -1,5 +1,5 @@
 {
-    "Some_Integer": 20.0,
+    "Some_Integer": 20,
     "Some_String": "foo",
     "Subdata": {
         "Sub": 13,
@@ -8,13 +8,15 @@
         }
     },
     "Sublist": [
-        1,
-        2,
-        3
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
     ],
     "Prefilled_Sublist": [
         "Hello",
-        "WOrld"
+        "My"
     ],
     "Prefilled_Validated": [
         1,
