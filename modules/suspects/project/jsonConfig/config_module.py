@@ -1,12 +1,14 @@
+
 '''Info Header Start
 Name : config_module
 Author : Wieland@AMB-ZEPH15
 Version : 0
-Build : 4
-Savetimestamp : 2023-02-24T13:08:58.964998
+Build : 5
+Savetimestamp : 2023-03-14T09:38:16.161322
 Saveorigin : Project.toe
 Saveversion : 2022.28040
 Info Header End'''
+
 class ConfigValue:
     def _to_json(self):
         return self.Value
@@ -14,17 +16,31 @@ class ConfigValue:
     def __repr__(self) -> str:
         return str( self.value.val )
     
-    def __init__(self, default = "", validator = lambda value: True, comment = "", parser = None):
-        
+    def __init__(self, 
+                default = "", 
+                validator = lambda value: True, 
+                comment = "", 
+                parser = None,
+                typecheck = object):
         self.comment = comment
         self.validator = validator
         self.value = tdu.Dependency(None)
         self.parser = parser or type(default)
+        self.typecheck = typecheck
         self.Set( default )
 
+    def validate(self, value):
+        if not isinstance(value, self.typecheck):
+            return False, f"Invalid type. Expected {self.typecheck} got {type(value)}"
+        if not self.validator( value ):
+            return False, f"Validation requirement not satisfied"
+        return True, "Pass"
+        
     def Set(self, value):
+        valid, errorstring = self.validate( value )
+        if not valid:
+            return False
         parsed_value = self.parser( value )
-        if not self.validator( parsed_value ): return False
         self.value.val = parsed_value
         self.value.modified()
 

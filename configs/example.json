@@ -1,10 +1,10 @@
 {
-    "Some_Integer": 20,
+    "Some_Integer": -2,
     "Some_String": "foo",
     "Subdata": {
         "Sub": 13,
         "SubDict": {
-            "SubSubValue": "Foobar"
+            "SubSubValue": "FOOBAR"
         }
     },
     "Sublist": [
