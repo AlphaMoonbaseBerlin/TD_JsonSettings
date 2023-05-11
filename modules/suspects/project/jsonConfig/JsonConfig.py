@@ -4,8 +4,8 @@
 Name : JsonConfig
 Author : Wieland@AMB-ZEPH15
 Version : 0
-Build : 6
-Savetimestamp : 2023-02-24T13:14:41.209464
+Build : 7
+Savetimestamp : 2023-05-11T09:44:25.592418
 Saveorigin : Project.toe
 Saveversion : 2022.28040
 Info Header End'''
@@ -30,7 +30,7 @@ class JsonConfig:
 		return os.path.join( info.dir, new_name)
 
 	def Refresh_File(self):
-		self.Data = self.Load_From_Json( self.ownerComp.op("config_json").text or "{}")
+		self.Data = self.Load_From_Json( self.ownerComp.op("callbackManager").Do_Callback("GetData") or self.ownerComp.op("config_json").text or "{}")
 		self.Save()
 
 	def Save(self):
@@ -46,5 +46,5 @@ class JsonConfig:
 		)
 		data = config_module.Collection( schema )
 		data.Set( datadict )
-		self.ownerComp.cook( force = True)
+		#self.ownerComp.cook( force = True)
 		return data
